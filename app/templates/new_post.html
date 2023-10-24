@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <form class="col-8 mx-auto bg-light px-4 py-3" method="post" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <h4 class="text-info my-3">
+      {{ legend }}
+    </h4>
+
+    <!-- <div class="row justify-content-center">
+      <div class="col-md-4 col-sm 6 mx-auto my-4">
+        <img src="{{ image_file }}" alt="Post Image" class="img-thumbnail" width="250" height="250">
+      </div>
+    </div> -->
+
+    <div class="mb-3">
+      {{ form.title.label(class='form-label') }}
+      {% if form.title.errors %}
+          {{ form.title(class='form-control is-invalid', value=form.title.data ) }}
+          <div class="invalid-feedback">
+            {% for error in form.title.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+      {% else %}
+          {{ form.title(class='form-control') }}
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.tags.label(class='form-label') }}
+      {% if form.tags.errors %}
+          {{ form.tags(class='form-control is-invalid', value=form.tags.data ) }}
+          <div class="invalid-feedback">
+            {% for error in form.tags.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+      {% else %}
+          {{ form.tags(class='form-control') }}
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.description.label(class='form-label') }}
+      {% if form.description.errors %}
+          {{ form.description(class='form-control is-invalid', value=form.description.data ) }}
+          <div class="invalid-feedback">
+            {% for error in form.description.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+      {% else %}
+          {{ form.description(class='form-control') }}
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.content.label(class='form-label') }}
+
+      {% if form.content.errors %}
+        {{ form.content(class='form-control is-invalid', value=form.content.data ) }}
+        <div class="invalid-feedback">
+          {% for error in form.content.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.content(class='form-control') }}
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.image_file(class='form-control', id='image') }}
+      {% if form.image_file.errors %}
+      
+        {% for error in form.image_file.errors %}
+          <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+        
+      {% endif %}
+    </div>
+
+    {{ form.submit(class='btn btn-primary') }}
+
+  </form>
+{% endblock content %}

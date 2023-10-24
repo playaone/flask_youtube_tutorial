@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <form class="col-8 mx-auto bg-light px-4 py-3" method="post" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <h4 class="text-info my-3">
+      Update Account
+    </h4>
+
+    <div class="row justify-content-center">
+      <div class="col-md-4 col-sm 6 mx-auto my-4">
+        <img src="{{ image_file }}" alt="Profile Image" class="img-thumbnail rounded-circle" width="125" height="125">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      {{ form.username.label(class='form-label') }}
+      {% if form.username.errors %}
+          {{ form.username(class='form-control is-invalid', value=current_user.username ) }}
+          <div class="invalid-feedback">
+            {% for error in form.username.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+      {% else %}
+          {{ form.username(class='form-control', value=current_user.username ) }}
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.email.label(class='form-label') }}
+
+      {% if form.email.errors %}
+        {{ form.email(class='form-control is-invalid', value=current_user.email ) }}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.email(class='form-control', value=current_user.email ) }}
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.image_file(class='form-control', id='image') }}
+      {% if form.image_file.errors %}
+      
+        {% for error in form.image_file.errors %}
+          <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+        
+      {% endif %}
+    </div>
+
+    {{ form.submit(class='btn btn-primary') }}
+
+  </form>
+{% endblock content %}

@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<form class="col-8 mx-auto bg-light px-4 py-3" method="post" action="">
+    {{ form.hidden_tag() }}
+    <h2 class="text-info my-3">
+        Sign In
+    </h2>
+    <div class="mb-3">
+        {{ form.email.label(class='form-label') }}
+
+        {% if form.email.errors %}
+            {{ form.email(class='form-control is-invalid') }}
+            <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.email(class='form-control') }}
+        {% endif %}
+
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        {{ form.password.label(class='form-label') }}
+        {% if form.password.errors %}
+            {{ form.password(class='form-control is-invalid') }}
+            <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.password(class='form-control') }}
+        {% endif %}
+    </div>
+    <div class="mb-3 form-check">
+        {{ form.remember.label(class='form-check-label') }}
+        {{ form.remember(class='form-check-input') }}
+    </div>
+    {{ form.submit(class='btn btn-primary mb-4') }}
+    <p>forgot your password?</p><a href="{{url_for('users.request_reset')}}">click here to reset password</a>
+</form>
+{% endblock content %}

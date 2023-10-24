@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="row">
+      {% for post in posts.items %}
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="" class="img-fluid rounded-start" alt="{{ post.title }}">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{{ url_for('posts.post', post_id = post.id) }}">{{ post.title }}</a></h5>
+                  <p class="card-text">{{ post.description }}</p>
+                  <p class="card-text"><small class="text-muted">{{ post.date_posted.strftime('%d-%m-%y') }}</small></p>
+                </div>
+                <div class="footer my-3">
+                  <a href="{{ url_for('posts.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      {% endfor %}
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if posts.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=posts.prev_num) }}"><<</a></li>
+          {% endif %}
+          {% for page_num in posts.iter_pages() %}
+            {% if page_num%}
+              <li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a></li>
+              {% else %}
+              ...
+            {% endif %}
+          
+          {% endfor %}
+          {% if posts.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=posts.next_num) }}">>></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+{% endblock content %}
